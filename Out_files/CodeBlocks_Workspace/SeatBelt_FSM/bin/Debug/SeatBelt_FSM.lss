@@ -1,0 +1,854 @@
+
+bin\Debug\SeatBelt_FSM.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000002  00800100  000004ce  00000582  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000004ce  00000000  00000000  000000b4  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          0000000b  00800102  00800102  00000584  2**0
+                  ALLOC
+  3 .fuse         00000003  00820000  00820000  00000584  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  4 .debug_aranges 00000060  00000000  00000000  00000587  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_pubnames 00000176  00000000  00000000  000005e7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000491  00000000  00000000  0000075d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000001fe  00000000  00000000  00000bee  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000506  00000000  00000000  00000dec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000e0  00000000  00000000  000012f4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000002a4  00000000  00000000  000013d4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   8:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  10:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  14:	0c 94 0e 01 	jmp	0x21c	; 0x21c <__vector_5>
+  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  2c:	0c 94 d6 00 	jmp	0x1ac	; 0x1ac <__vector_11>
+  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  38:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  48:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  50:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	ee ec       	ldi	r30, 0xCE	; 206
+  7c:	f4 e0       	ldi	r31, 0x04	; 4
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <.do_copy_data_start>
+
+00000080 <.do_copy_data_loop>:
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+
+00000084 <.do_copy_data_start>:
+  84:	a2 30       	cpi	r26, 0x02	; 2
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <.do_copy_data_loop>
+
+0000008a <__do_clear_bss>:
+  8a:	11 e0       	ldi	r17, 0x01	; 1
+  8c:	a2 e0       	ldi	r26, 0x02	; 2
+  8e:	b1 e0       	ldi	r27, 0x01	; 1
+  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+
+00000092 <.do_clear_bss_loop>:
+  92:	1d 92       	st	X+, r1
+
+00000094 <.do_clear_bss_start>:
+  94:	ad 30       	cpi	r26, 0x0D	; 13
+  96:	b1 07       	cpc	r27, r17
+  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
+  9a:	0e 94 53 00 	call	0xa6	; 0xa6 <main>
+  9e:	0c 94 65 02 	jmp	0x4ca	; 0x4ca <_exit>
+
+000000a2 <__bad_interrupt>:
+  a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a6 <main>:
+uint8_t State_Change = TRUE;
+CurrentStatetype CurrentState = {SEAT_NOT_OCCUPIED, SEAT_BELT_OFF};
+
+/**< Main Starts here */
+int main(void)
+{
+  a6:	df 93       	push	r29
+  a8:	cf 93       	push	r28
+  aa:	cd b7       	in	r28, 0x3d	; 61
+  ac:	de b7       	in	r29, 0x3e	; 62
+    comp_init();
+  ae:	0e 94 62 00 	call	0xc4	; 0xc4 <comp_init>
+    Read_CurrentStatus();
+  b2:	0e 94 b1 00 	call	0x162	; 0x162 <Read_CurrentStatus>
+
+    // Start of StateMachine
+    while (1)
+    {
+        if(State_Change == TRUE)
+  b6:	80 91 00 01 	lds	r24, 0x0100
+  ba:	81 30       	cpi	r24, 0x01	; 1
+  bc:	e1 f7       	brne	.-8      	; 0xb6 <main+0x10>
+        {
+            Run_StateMachine();
+  be:	0e 94 3b 01 	call	0x276	; 0x276 <Run_StateMachine>
+  c2:	f9 cf       	rjmp	.-14     	; 0xb6 <main+0x10>
+
+000000c4 <comp_init>:
+ * \param  None
+ * \return NOne
+ *
+ */
+void comp_init(void)
+{
+  c4:	df 93       	push	r29
+  c6:	cf 93       	push	r28
+  c8:	cd b7       	in	r28, 0x3d	; 61
+  ca:	de b7       	in	r29, 0x3e	; 62
+    // Configure PD2 as an input using the Data Direction Register D (DDRD)
+    DDRD &= ~_BV(DDD0);
+  cc:	aa e2       	ldi	r26, 0x2A	; 42
+  ce:	b0 e0       	ldi	r27, 0x00	; 0
+  d0:	ea e2       	ldi	r30, 0x2A	; 42
+  d2:	f0 e0       	ldi	r31, 0x00	; 0
+  d4:	80 81       	ld	r24, Z
+  d6:	8e 7f       	andi	r24, 0xFE	; 254
+  d8:	8c 93       	st	X, r24
+    DDRD &= ~_BV(DDD1);
+  da:	aa e2       	ldi	r26, 0x2A	; 42
+  dc:	b0 e0       	ldi	r27, 0x00	; 0
+  de:	ea e2       	ldi	r30, 0x2A	; 42
+  e0:	f0 e0       	ldi	r31, 0x00	; 0
+  e2:	80 81       	ld	r24, Z
+  e4:	8d 7f       	andi	r24, 0xFD	; 253
+  e6:	8c 93       	st	X, r24
+
+    // Enable the pull-up resistor on PD2 using the Port D Data Register (PORTD)
+    PORTD |= _BV(PORTD0);
+  e8:	ab e2       	ldi	r26, 0x2B	; 43
+  ea:	b0 e0       	ldi	r27, 0x00	; 0
+  ec:	eb e2       	ldi	r30, 0x2B	; 43
+  ee:	f0 e0       	ldi	r31, 0x00	; 0
+  f0:	80 81       	ld	r24, Z
+  f2:	81 60       	ori	r24, 0x01	; 1
+  f4:	8c 93       	st	X, r24
+    PORTD |= _BV(PORTD1);
+  f6:	ab e2       	ldi	r26, 0x2B	; 43
+  f8:	b0 e0       	ldi	r27, 0x00	; 0
+  fa:	eb e2       	ldi	r30, 0x2B	; 43
+  fc:	f0 e0       	ldi	r31, 0x00	; 0
+  fe:	80 81       	ld	r24, Z
+ 100:	82 60       	ori	r24, 0x02	; 2
+ 102:	8c 93       	st	X, r24
+
+    // Enable pin change interrupt on the PCINT16 and PCINT17 pin using Pin Change Mask Register 2 (PCMSK2)
+    PCMSK2 |= _BV(PCINT16);
+ 104:	ad e6       	ldi	r26, 0x6D	; 109
+ 106:	b0 e0       	ldi	r27, 0x00	; 0
+ 108:	ed e6       	ldi	r30, 0x6D	; 109
+ 10a:	f0 e0       	ldi	r31, 0x00	; 0
+ 10c:	80 81       	ld	r24, Z
+ 10e:	81 60       	ori	r24, 0x01	; 1
+ 110:	8c 93       	st	X, r24
+    PCMSK2 |= _BV(PCINT17);
+ 112:	ad e6       	ldi	r26, 0x6D	; 109
+ 114:	b0 e0       	ldi	r27, 0x00	; 0
+ 116:	ed e6       	ldi	r30, 0x6D	; 109
+ 118:	f0 e0       	ldi	r31, 0x00	; 0
+ 11a:	80 81       	ld	r24, Z
+ 11c:	82 60       	ori	r24, 0x02	; 2
+ 11e:	8c 93       	st	X, r24
+
+    // Enable pin change interrupt 2 using the Pin Change Interrupt Control Register (PCICR)
+    PCICR |= _BV(PCIE2);
+ 120:	a8 e6       	ldi	r26, 0x68	; 104
+ 122:	b0 e0       	ldi	r27, 0x00	; 0
+ 124:	e8 e6       	ldi	r30, 0x68	; 104
+ 126:	f0 e0       	ldi	r31, 0x00	; 0
+ 128:	80 81       	ld	r24, Z
+ 12a:	84 60       	ori	r24, 0x04	; 4
+ 12c:	8c 93       	st	X, r24
+
+    // Configure PB1 as an output using the Port B Data Direction Register (DDRB)
+    DDRB |= _BV(DDB1);
+ 12e:	a4 e2       	ldi	r26, 0x24	; 36
+ 130:	b0 e0       	ldi	r27, 0x00	; 0
+ 132:	e4 e2       	ldi	r30, 0x24	; 36
+ 134:	f0 e0       	ldi	r31, 0x00	; 0
+ 136:	80 81       	ld	r24, Z
+ 138:	82 60       	ori	r24, 0x02	; 2
+ 13a:	8c 93       	st	X, r24
+
+    //Configure Timer for Periodic Interrupt
+    TCCR1B |= ((1<<CS12) | (1<<CS10) | (1<<WGM12));     // Clock/1024, 0.001024 seconds per tick, Mode=( CTC Clear timer on Compare Match)
+ 13c:	a1 e8       	ldi	r26, 0x81	; 129
+ 13e:	b0 e0       	ldi	r27, 0x00	; 0
+ 140:	e1 e8       	ldi	r30, 0x81	; 129
+ 142:	f0 e0       	ldi	r31, 0x00	; 0
+ 144:	80 81       	ld	r24, Z
+ 146:	8d 60       	ori	r24, 0x0D	; 13
+ 148:	8c 93       	st	X, r24
+    OCR1A  = 15625-1;                                   // 15625 means 1 sec
+ 14a:	e8 e8       	ldi	r30, 0x88	; 136
+ 14c:	f0 e0       	ldi	r31, 0x00	; 0
+ 14e:	88 e0       	ldi	r24, 0x08	; 8
+ 150:	9d e3       	ldi	r25, 0x3D	; 61
+ 152:	91 83       	std	Z+1, r25	; 0x01
+ 154:	80 83       	st	Z, r24
+
+    Timer2_PWM_setup();
+ 156:	0e 94 2c 02 	call	0x458	; 0x458 <Timer2_PWM_setup>
+    // Enable interrupts
+    sei();
+ 15a:	78 94       	sei
+
+
+    // Timer0   Timer1   Timer2
+    //   8bit    16bit     8bit
+
+}
+ 15c:	cf 91       	pop	r28
+ 15e:	df 91       	pop	r29
+ 160:	08 95       	ret
+
+00000162 <Read_CurrentStatus>:
+ * \param  None
+ * \return None
+ *
+ */
+void Read_CurrentStatus(void)
+{
+ 162:	df 93       	push	r29
+ 164:	cf 93       	push	r28
+ 166:	cd b7       	in	r28, 0x3d	; 61
+ 168:	de b7       	in	r29, 0x3e	; 62
+    // Read PD0 using the Port D Pin Input Register (PIND)
+    if (PIND & _BV(SEAT_OCCUPANCY_PIN))
+ 16a:	e9 e2       	ldi	r30, 0x29	; 41
+ 16c:	f0 e0       	ldi	r31, 0x00	; 0
+ 16e:	80 81       	ld	r24, Z
+ 170:	88 2f       	mov	r24, r24
+ 172:	90 e0       	ldi	r25, 0x00	; 0
+ 174:	81 70       	andi	r24, 0x01	; 1
+ 176:	90 70       	andi	r25, 0x00	; 0
+ 178:	88 23       	and	r24, r24
+ 17a:	19 f0       	breq	.+6      	; 0x182 <Read_CurrentStatus+0x20>
+    {   // PD0 is High, so button is released/PulledUp
+        // Set the CurrentState of seat to Not Occupied
+        CurrentState.Seat = SEAT_NOT_OCCUPIED;
+ 17c:	10 92 07 01 	sts	0x0107, r1
+ 180:	03 c0       	rjmp	.+6      	; 0x188 <Read_CurrentStatus+0x26>
+    }
+    else
+    {   // PD0 is Low, so button is pressed/Ground
+        // Set the CurrentState of seat to Not Occupied
+        CurrentState.Seat = SEAT_OCCUPIED;
+ 182:	81 e0       	ldi	r24, 0x01	; 1
+ 184:	80 93 07 01 	sts	0x0107, r24
+    }
+
+    if (PIND & _BV(SEATBELT_PIN))
+ 188:	e9 e2       	ldi	r30, 0x29	; 41
+ 18a:	f0 e0       	ldi	r31, 0x00	; 0
+ 18c:	80 81       	ld	r24, Z
+ 18e:	88 2f       	mov	r24, r24
+ 190:	90 e0       	ldi	r25, 0x00	; 0
+ 192:	82 70       	andi	r24, 0x02	; 2
+ 194:	90 70       	andi	r25, 0x00	; 0
+ 196:	00 97       	sbiw	r24, 0x00	; 0
+ 198:	19 f0       	breq	.+6      	; 0x1a0 <Read_CurrentStatus+0x3e>
+    {   // PD0 is High, so button is released/PulledUp
+        // Set the CurrentState of seat to Not Occupied
+        CurrentState.Belt = SEAT_BELT_OFF;
+ 19a:	10 92 08 01 	sts	0x0108, r1
+ 19e:	03 c0       	rjmp	.+6      	; 0x1a6 <Read_CurrentStatus+0x44>
+    }
+    else
+    {   // PD0 is Low, so button is pressed/Ground
+        // Set the CurrentState of seat to Not Occupied
+        CurrentState.Belt = SEAT_BELT_ON;
+ 1a0:	81 e0       	ldi	r24, 0x01	; 1
+ 1a2:	80 93 08 01 	sts	0x0108, r24
+    }
+}
+ 1a6:	cf 91       	pop	r28
+ 1a8:	df 91       	pop	r29
+ 1aa:	08 95       	ret
+
+000001ac <__vector_11>:
+ * \param None
+ * \return None
+ *
+ */
+ISR(TIMER1_COMPA_vect)
+{
+ 1ac:	1f 92       	push	r1
+ 1ae:	0f 92       	push	r0
+ 1b0:	0f b6       	in	r0, 0x3f	; 63
+ 1b2:	0f 92       	push	r0
+ 1b4:	11 24       	eor	r1, r1
+ 1b6:	2f 93       	push	r18
+ 1b8:	3f 93       	push	r19
+ 1ba:	4f 93       	push	r20
+ 1bc:	5f 93       	push	r21
+ 1be:	6f 93       	push	r22
+ 1c0:	7f 93       	push	r23
+ 1c2:	8f 93       	push	r24
+ 1c4:	9f 93       	push	r25
+ 1c6:	af 93       	push	r26
+ 1c8:	bf 93       	push	r27
+ 1ca:	ef 93       	push	r30
+ 1cc:	ff 93       	push	r31
+ 1ce:	df 93       	push	r29
+ 1d0:	cf 93       	push	r28
+ 1d2:	cd b7       	in	r28, 0x3d	; 61
+ 1d4:	de b7       	in	r29, 0x3e	; 62
+    //Increment the timer count.
+	timer1_count++;
+ 1d6:	80 91 02 01 	lds	r24, 0x0102
+ 1da:	8f 5f       	subi	r24, 0xFF	; 255
+ 1dc:	80 93 02 01 	sts	0x0102, r24
+	if(timer1_count == TIME_TO_BUZZ)
+ 1e0:	80 91 02 01 	lds	r24, 0x0102
+ 1e4:	8f 30       	cpi	r24, 0x0F	; 15
+ 1e6:	39 f4       	brne	.+14     	; 0x1f6 <__vector_11+0x4a>
+    {
+        Timer1_Stop();
+ 1e8:	0e 94 1a 02 	call	0x434	; 0x434 <Timer1_Stop>
+        Timer_end   = TRUE;
+ 1ec:	81 e0       	ldi	r24, 0x01	; 1
+ 1ee:	80 93 06 01 	sts	0x0106, r24
+        timer1_count = 0;
+ 1f2:	10 92 02 01 	sts	0x0102, r1
+    }
+}
+ 1f6:	cf 91       	pop	r28
+ 1f8:	df 91       	pop	r29
+ 1fa:	ff 91       	pop	r31
+ 1fc:	ef 91       	pop	r30
+ 1fe:	bf 91       	pop	r27
+ 200:	af 91       	pop	r26
+ 202:	9f 91       	pop	r25
+ 204:	8f 91       	pop	r24
+ 206:	7f 91       	pop	r23
+ 208:	6f 91       	pop	r22
+ 20a:	5f 91       	pop	r21
+ 20c:	4f 91       	pop	r20
+ 20e:	3f 91       	pop	r19
+ 210:	2f 91       	pop	r18
+ 212:	0f 90       	pop	r0
+ 214:	0f be       	out	0x3f, r0	; 63
+ 216:	0f 90       	pop	r0
+ 218:	1f 90       	pop	r1
+ 21a:	18 95       	reti
+
+0000021c <__vector_5>:
+ * \param None
+ * \return None
+ *
+ */
+ISR(PCINT2_vect)
+{
+ 21c:	1f 92       	push	r1
+ 21e:	0f 92       	push	r0
+ 220:	0f b6       	in	r0, 0x3f	; 63
+ 222:	0f 92       	push	r0
+ 224:	11 24       	eor	r1, r1
+ 226:	2f 93       	push	r18
+ 228:	3f 93       	push	r19
+ 22a:	4f 93       	push	r20
+ 22c:	5f 93       	push	r21
+ 22e:	6f 93       	push	r22
+ 230:	7f 93       	push	r23
+ 232:	8f 93       	push	r24
+ 234:	9f 93       	push	r25
+ 236:	af 93       	push	r26
+ 238:	bf 93       	push	r27
+ 23a:	ef 93       	push	r30
+ 23c:	ff 93       	push	r31
+ 23e:	df 93       	push	r29
+ 240:	cf 93       	push	r28
+ 242:	cd b7       	in	r28, 0x3d	; 61
+ 244:	de b7       	in	r29, 0x3e	; 62
+    State_Change = TRUE;
+ 246:	81 e0       	ldi	r24, 0x01	; 1
+ 248:	80 93 00 01 	sts	0x0100, r24
+    Read_CurrentStatus();
+ 24c:	0e 94 b1 00 	call	0x162	; 0x162 <Read_CurrentStatus>
+}
+ 250:	cf 91       	pop	r28
+ 252:	df 91       	pop	r29
+ 254:	ff 91       	pop	r31
+ 256:	ef 91       	pop	r30
+ 258:	bf 91       	pop	r27
+ 25a:	af 91       	pop	r26
+ 25c:	9f 91       	pop	r25
+ 25e:	8f 91       	pop	r24
+ 260:	7f 91       	pop	r23
+ 262:	6f 91       	pop	r22
+ 264:	5f 91       	pop	r21
+ 266:	4f 91       	pop	r20
+ 268:	3f 91       	pop	r19
+ 26a:	2f 91       	pop	r18
+ 26c:	0f 90       	pop	r0
+ 26e:	0f be       	out	0x3f, r0	; 63
+ 270:	0f 90       	pop	r0
+ 272:	1f 90       	pop	r1
+ 274:	18 95       	reti
+
+00000276 <Run_StateMachine>:
+ * \param  None
+ * \return None
+ *
+ */
+void Run_StateMachine(void)
+{
+ 276:	df 93       	push	r29
+ 278:	cf 93       	push	r28
+ 27a:	00 d0       	rcall	.+0      	; 0x27c <Run_StateMachine+0x6>
+ 27c:	cd b7       	in	r28, 0x3d	; 61
+ 27e:	de b7       	in	r29, 0x3e	; 62
+    switch (StateMachine_Var)
+ 280:	80 91 09 01 	lds	r24, 0x0109
+ 284:	28 2f       	mov	r18, r24
+ 286:	30 e0       	ldi	r19, 0x00	; 0
+ 288:	3a 83       	std	Y+2, r19	; 0x02
+ 28a:	29 83       	std	Y+1, r18	; 0x01
+ 28c:	89 81       	ldd	r24, Y+1	; 0x01
+ 28e:	9a 81       	ldd	r25, Y+2	; 0x02
+ 290:	81 30       	cpi	r24, 0x01	; 1
+ 292:	91 05       	cpc	r25, r1
+ 294:	41 f1       	breq	.+80     	; 0x2e6 <Run_StateMachine+0x70>
+ 296:	29 81       	ldd	r18, Y+1	; 0x01
+ 298:	3a 81       	ldd	r19, Y+2	; 0x02
+ 29a:	22 30       	cpi	r18, 0x02	; 2
+ 29c:	31 05       	cpc	r19, r1
+ 29e:	2c f4       	brge	.+10     	; 0x2aa <Run_StateMachine+0x34>
+ 2a0:	89 81       	ldd	r24, Y+1	; 0x01
+ 2a2:	9a 81       	ldd	r25, Y+2	; 0x02
+ 2a4:	00 97       	sbiw	r24, 0x00	; 0
+ 2a6:	71 f0       	breq	.+28     	; 0x2c4 <Run_StateMachine+0x4e>
+ 2a8:	a8 c0       	rjmp	.+336    	; 0x3fa <Run_StateMachine+0x184>
+ 2aa:	29 81       	ldd	r18, Y+1	; 0x01
+ 2ac:	3a 81       	ldd	r19, Y+2	; 0x02
+ 2ae:	22 30       	cpi	r18, 0x02	; 2
+ 2b0:	31 05       	cpc	r19, r1
+ 2b2:	09 f4       	brne	.+2      	; 0x2b6 <Run_StateMachine+0x40>
+ 2b4:	56 c0       	rjmp	.+172    	; 0x362 <Run_StateMachine+0xec>
+ 2b6:	89 81       	ldd	r24, Y+1	; 0x01
+ 2b8:	9a 81       	ldd	r25, Y+2	; 0x02
+ 2ba:	83 30       	cpi	r24, 0x03	; 3
+ 2bc:	91 05       	cpc	r25, r1
+ 2be:	09 f4       	brne	.+2      	; 0x2c2 <Run_StateMachine+0x4c>
+ 2c0:	74 c0       	rjmp	.+232    	; 0x3aa <Run_StateMachine+0x134>
+ 2c2:	9b c0       	rjmp	.+310    	; 0x3fa <Run_StateMachine+0x184>
+    {
+        case SM_IDLE_STATE:
+            //Wait for seat belt and seat Occupancy
+            if (CurrentState.Seat == SEAT_OCCUPIED)
+ 2c4:	80 91 07 01 	lds	r24, 0x0107
+ 2c8:	81 30       	cpi	r24, 0x01	; 1
+ 2ca:	21 f4       	brne	.+8      	; 0x2d4 <Run_StateMachine+0x5e>
+            {
+                StateMachine_Var = SM_SEAT_OCCUPIED;
+ 2cc:	81 e0       	ldi	r24, 0x01	; 1
+ 2ce:	80 93 09 01 	sts	0x0109, r24
+ 2d2:	98 c0       	rjmp	.+304    	; 0x404 <Run_StateMachine+0x18e>
+            }
+            else if (CurrentState.Belt == SEAT_BELT_ON)
+ 2d4:	80 91 08 01 	lds	r24, 0x0108
+ 2d8:	81 30       	cpi	r24, 0x01	; 1
+ 2da:	09 f0       	breq	.+2      	; 0x2de <Run_StateMachine+0x68>
+ 2dc:	93 c0       	rjmp	.+294    	; 0x404 <Run_StateMachine+0x18e>
+            {
+                StateMachine_Var = SM_SEAT_BELT_ON;
+ 2de:	82 e0       	ldi	r24, 0x02	; 2
+ 2e0:	80 93 09 01 	sts	0x0109, r24
+ 2e4:	8f c0       	rjmp	.+286    	; 0x404 <Run_StateMachine+0x18e>
+                // Wait in SM_IDLE_STATE
+            }
+            break;
+        case SM_SEAT_OCCUPIED:
+            // enters here when seat occupied flag is set.
+            if (CurrentState.Seat == SEAT_OCCUPIED && CurrentState.Belt == SEAT_BELT_OFF && Timer_Start == FALSE)
+ 2e6:	80 91 07 01 	lds	r24, 0x0107
+ 2ea:	81 30       	cpi	r24, 0x01	; 1
+ 2ec:	71 f4       	brne	.+28     	; 0x30a <Run_StateMachine+0x94>
+ 2ee:	80 91 08 01 	lds	r24, 0x0108
+ 2f2:	88 23       	and	r24, r24
+ 2f4:	51 f4       	brne	.+20     	; 0x30a <Run_StateMachine+0x94>
+ 2f6:	80 91 05 01 	lds	r24, 0x0105
+ 2fa:	88 23       	and	r24, r24
+ 2fc:	31 f4       	brne	.+12     	; 0x30a <Run_StateMachine+0x94>
+            {
+                Timer_Start = TRUE;
+ 2fe:	81 e0       	ldi	r24, 0x01	; 1
+ 300:	80 93 05 01 	sts	0x0105, r24
+                Timer1_Start();
+ 304:	0e 94 07 02 	call	0x40e	; 0x40e <Timer1_Start>
+ 308:	7d c0       	rjmp	.+250    	; 0x404 <Run_StateMachine+0x18e>
+            }
+            else if (CurrentState.Seat == SEAT_OCCUPIED && CurrentState.Belt == SEAT_BELT_OFF && Timer_end == TRUE)
+ 30a:	80 91 07 01 	lds	r24, 0x0107
+ 30e:	81 30       	cpi	r24, 0x01	; 1
+ 310:	81 f4       	brne	.+32     	; 0x332 <Run_StateMachine+0xbc>
+ 312:	80 91 08 01 	lds	r24, 0x0108
+ 316:	88 23       	and	r24, r24
+ 318:	61 f4       	brne	.+24     	; 0x332 <Run_StateMachine+0xbc>
+ 31a:	80 91 06 01 	lds	r24, 0x0106
+ 31e:	81 30       	cpi	r24, 0x01	; 1
+ 320:	41 f4       	brne	.+16     	; 0x332 <Run_StateMachine+0xbc>
+            {
+                StateMachine_Var = SM_BUZZER;
+ 322:	83 e0       	ldi	r24, 0x03	; 3
+ 324:	80 93 09 01 	sts	0x0109, r24
+                Timer_Start = FALSE;
+ 328:	10 92 05 01 	sts	0x0105, r1
+                Timer_end = FALSE;
+ 32c:	10 92 06 01 	sts	0x0106, r1
+ 330:	69 c0       	rjmp	.+210    	; 0x404 <Run_StateMachine+0x18e>
+            }
+            else if (CurrentState.Seat == SEAT_OCCUPIED && CurrentState.Belt == SEAT_BELT_ON)
+ 332:	80 91 07 01 	lds	r24, 0x0107
+ 336:	81 30       	cpi	r24, 0x01	; 1
+ 338:	09 f0       	breq	.+2      	; 0x33c <Run_StateMachine+0xc6>
+ 33a:	64 c0       	rjmp	.+200    	; 0x404 <Run_StateMachine+0x18e>
+ 33c:	80 91 08 01 	lds	r24, 0x0108
+ 340:	81 30       	cpi	r24, 0x01	; 1
+ 342:	09 f0       	breq	.+2      	; 0x346 <Run_StateMachine+0xd0>
+ 344:	5f c0       	rjmp	.+190    	; 0x404 <Run_StateMachine+0x18e>
+            {
+                if(Timer_Start == TRUE)
+ 346:	80 91 05 01 	lds	r24, 0x0105
+ 34a:	81 30       	cpi	r24, 0x01	; 1
+ 34c:	31 f4       	brne	.+12     	; 0x35a <Run_StateMachine+0xe4>
+                {
+                    Timer1_Stop();
+ 34e:	0e 94 1a 02 	call	0x434	; 0x434 <Timer1_Stop>
+                    Timer_Start = FALSE;
+ 352:	10 92 05 01 	sts	0x0105, r1
+                    Timer_end = FALSE;
+ 356:	10 92 06 01 	sts	0x0106, r1
+                }
+                StateMachine_Var = SM_SEAT_BELT_ON;
+ 35a:	82 e0       	ldi	r24, 0x02	; 2
+ 35c:	80 93 09 01 	sts	0x0109, r24
+ 360:	51 c0       	rjmp	.+162    	; 0x404 <Run_StateMachine+0x18e>
+                // Waiting for Timer to End.
+            }
+            break;
+        case SM_SEAT_BELT_ON:
+            // enters here when seat belt flag is set.
+            if (CurrentState.Belt == SEAT_BELT_ON)
+ 362:	80 91 08 01 	lds	r24, 0x0108
+ 366:	81 30       	cpi	r24, 0x01	; 1
+ 368:	81 f4       	brne	.+32     	; 0x38a <Run_StateMachine+0x114>
+            {
+                if(Led_Status == FALSE)
+ 36a:	80 91 0a 01 	lds	r24, 0x010A
+ 36e:	88 23       	and	r24, r24
+ 370:	09 f0       	breq	.+2      	; 0x374 <Run_StateMachine+0xfe>
+ 372:	48 c0       	rjmp	.+144    	; 0x404 <Run_StateMachine+0x18e>
+                {
+                    PORTB |= _BV(PINB1);
+ 374:	a5 e2       	ldi	r26, 0x25	; 37
+ 376:	b0 e0       	ldi	r27, 0x00	; 0
+ 378:	e5 e2       	ldi	r30, 0x25	; 37
+ 37a:	f0 e0       	ldi	r31, 0x00	; 0
+ 37c:	80 81       	ld	r24, Z
+ 37e:	82 60       	ori	r24, 0x02	; 2
+ 380:	8c 93       	st	X, r24
+                    Led_Status = TRUE;
+ 382:	81 e0       	ldi	r24, 0x01	; 1
+ 384:	80 93 0a 01 	sts	0x010A, r24
+ 388:	3d c0       	rjmp	.+122    	; 0x404 <Run_StateMachine+0x18e>
+                }
+            }
+            else
+            {
+                StateMachine_Var = SM_IDLE_STATE;
+ 38a:	10 92 09 01 	sts	0x0109, r1
+                if (Led_Status == TRUE)
+ 38e:	80 91 0a 01 	lds	r24, 0x010A
+ 392:	81 30       	cpi	r24, 0x01	; 1
+ 394:	b9 f5       	brne	.+110    	; 0x404 <Run_StateMachine+0x18e>
+                {
+                    //TURN OFF LED
+                    PORTB &= ~_BV(PINB1);
+ 396:	a5 e2       	ldi	r26, 0x25	; 37
+ 398:	b0 e0       	ldi	r27, 0x00	; 0
+ 39a:	e5 e2       	ldi	r30, 0x25	; 37
+ 39c:	f0 e0       	ldi	r31, 0x00	; 0
+ 39e:	80 81       	ld	r24, Z
+ 3a0:	8d 7f       	andi	r24, 0xFD	; 253
+ 3a2:	8c 93       	st	X, r24
+                    Led_Status = FALSE;
+ 3a4:	10 92 0a 01 	sts	0x010A, r1
+ 3a8:	2d c0       	rjmp	.+90     	; 0x404 <Run_StateMachine+0x18e>
+                // Wait in SM_SEAT_BELT_ON
+            }
+            break;
+        case SM_BUZZER:
+                // Wait for Seat Belt ON
+                if (CurrentState.Belt == SEAT_BELT_ON)
+ 3aa:	80 91 08 01 	lds	r24, 0x0108
+ 3ae:	81 30       	cpi	r24, 0x01	; 1
+ 3b0:	61 f4       	brne	.+24     	; 0x3ca <Run_StateMachine+0x154>
+                {
+                    // Buzzer OFF
+                    if(Buzzer_Status == TRUE)
+ 3b2:	80 91 0b 01 	lds	r24, 0x010B
+ 3b6:	81 30       	cpi	r24, 0x01	; 1
+ 3b8:	21 f4       	brne	.+8      	; 0x3c2 <Run_StateMachine+0x14c>
+                    {
+                        Timer2_Stop_PWM();
+ 3ba:	0e 94 51 02 	call	0x4a2	; 0x4a2 <Timer2_Stop_PWM>
+                        Buzzer_Status = FALSE;
+ 3be:	10 92 0b 01 	sts	0x010B, r1
+                    }
+                    StateMachine_Var = SM_SEAT_BELT_ON;
+ 3c2:	82 e0       	ldi	r24, 0x02	; 2
+ 3c4:	80 93 09 01 	sts	0x0109, r24
+ 3c8:	1d c0       	rjmp	.+58     	; 0x404 <Run_StateMachine+0x18e>
+                }
+                else
+                {   // Turn On Buzzer and Check if seat is not occupied
+                    if(Buzzer_Status == FALSE)
+ 3ca:	80 91 0b 01 	lds	r24, 0x010B
+ 3ce:	88 23       	and	r24, r24
+ 3d0:	29 f4       	brne	.+10     	; 0x3dc <Run_StateMachine+0x166>
+                    {
+                        Timer2_Start_PWM();
+ 3d2:	0e 94 3b 02 	call	0x476	; 0x476 <Timer2_Start_PWM>
+                        Buzzer_Status = TRUE;
+ 3d6:	81 e0       	ldi	r24, 0x01	; 1
+ 3d8:	80 93 0b 01 	sts	0x010B, r24
+                    }
+                    if(CurrentState.Seat == SEAT_NOT_OCCUPIED)
+ 3dc:	80 91 07 01 	lds	r24, 0x0107
+ 3e0:	88 23       	and	r24, r24
+ 3e2:	81 f4       	brne	.+32     	; 0x404 <Run_StateMachine+0x18e>
+                    {
+                        StateMachine_Var = SM_IDLE_STATE;
+ 3e4:	10 92 09 01 	sts	0x0109, r1
+                        if(Buzzer_Status == TRUE)
+ 3e8:	80 91 0b 01 	lds	r24, 0x010B
+ 3ec:	81 30       	cpi	r24, 0x01	; 1
+ 3ee:	51 f4       	brne	.+20     	; 0x404 <Run_StateMachine+0x18e>
+                        {
+                            Timer2_Stop_PWM();
+ 3f0:	0e 94 51 02 	call	0x4a2	; 0x4a2 <Timer2_Stop_PWM>
+                            Buzzer_Status = FALSE;
+ 3f4:	10 92 0b 01 	sts	0x010B, r1
+ 3f8:	05 c0       	rjmp	.+10     	; 0x404 <Run_StateMachine+0x18e>
+                        }
+                    }
+                }
+            break;
+        default:
+            err_cnt++;
+ 3fa:	80 91 0c 01 	lds	r24, 0x010C
+ 3fe:	8f 5f       	subi	r24, 0xFF	; 255
+ 400:	80 93 0c 01 	sts	0x010C, r24
+    }
+}
+ 404:	0f 90       	pop	r0
+ 406:	0f 90       	pop	r0
+ 408:	cf 91       	pop	r28
+ 40a:	df 91       	pop	r29
+ 40c:	08 95       	ret
+
+0000040e <Timer1_Start>:
+ * \param  None
+ * \return None
+ *
+ */
+void Timer1_Start(void)
+{
+ 40e:	df 93       	push	r29
+ 410:	cf 93       	push	r28
+ 412:	cd b7       	in	r28, 0x3d	; 61
+ 414:	de b7       	in	r29, 0x3e	; 62
+    TCNT1  = 0x0;                                       // Reset the Timer Counter
+ 416:	e4 e8       	ldi	r30, 0x84	; 132
+ 418:	f0 e0       	ldi	r31, 0x00	; 0
+ 41a:	11 82       	std	Z+1, r1	; 0x01
+ 41c:	10 82       	st	Z, r1
+	TIMSK1 |= (1<<OCIE1A);                              // Enable Interrupt Timer, Output Compare A (TIMER1_COMPA_vect)
+ 41e:	af e6       	ldi	r26, 0x6F	; 111
+ 420:	b0 e0       	ldi	r27, 0x00	; 0
+ 422:	ef e6       	ldi	r30, 0x6F	; 111
+ 424:	f0 e0       	ldi	r31, 0x00	; 0
+ 426:	80 81       	ld	r24, Z
+ 428:	82 60       	ori	r24, 0x02	; 2
+ 42a:	8c 93       	st	X, r24
+    sei();
+ 42c:	78 94       	sei
+}
+ 42e:	cf 91       	pop	r28
+ 430:	df 91       	pop	r29
+ 432:	08 95       	ret
+
+00000434 <Timer1_Stop>:
+ * \param  None
+ * \return None
+ *
+ */
+void Timer1_Stop(void)
+{
+ 434:	df 93       	push	r29
+ 436:	cf 93       	push	r28
+ 438:	cd b7       	in	r28, 0x3d	; 61
+ 43a:	de b7       	in	r29, 0x3e	; 62
+    TIMSK1 &= ~(1<<OCIE1A);                             // Disable Interrupt Timer, Output Compare A (TIMER1_COMPA_vect)
+ 43c:	af e6       	ldi	r26, 0x6F	; 111
+ 43e:	b0 e0       	ldi	r27, 0x00	; 0
+ 440:	ef e6       	ldi	r30, 0x6F	; 111
+ 442:	f0 e0       	ldi	r31, 0x00	; 0
+ 444:	80 81       	ld	r24, Z
+ 446:	8d 7f       	andi	r24, 0xFD	; 253
+ 448:	8c 93       	st	X, r24
+    TCNT1  = 0x0;
+ 44a:	e4 e8       	ldi	r30, 0x84	; 132
+ 44c:	f0 e0       	ldi	r31, 0x00	; 0
+ 44e:	11 82       	std	Z+1, r1	; 0x01
+ 450:	10 82       	st	Z, r1
+}
+ 452:	cf 91       	pop	r28
+ 454:	df 91       	pop	r29
+ 456:	08 95       	ret
+
+00000458 <Timer2_PWM_setup>:
+ * \param  None
+ * \return None
+ *
+ */
+void Timer2_PWM_setup(void)
+{
+ 458:	df 93       	push	r29
+ 45a:	cf 93       	push	r28
+ 45c:	cd b7       	in	r28, 0x3d	; 61
+ 45e:	de b7       	in	r29, 0x3e	; 62
+  // WGM22/WGM21/WGM20 all set -> Mode 7, fast PWM
+  TCCR2A = (1<<COM2B1) + (1<<WGM21) + (1<<WGM20); // Set OC2B at bottom, clear OC2B at compare match
+ 460:	e0 eb       	ldi	r30, 0xB0	; 176
+ 462:	f0 e0       	ldi	r31, 0x00	; 0
+ 464:	83 e2       	ldi	r24, 0x23	; 35
+ 466:	80 83       	st	Z, r24
+  TCCR2B = (1<<CS22) + (1<<CS21)+ (1<<CS20) + (1<<WGM22); // prescaler = 1024;
+ 468:	e1 eb       	ldi	r30, 0xB1	; 177
+ 46a:	f0 e0       	ldi	r31, 0x00	; 0
+ 46c:	8f e0       	ldi	r24, 0x0F	; 15
+ 46e:	80 83       	st	Z, r24
+}
+ 470:	cf 91       	pop	r28
+ 472:	df 91       	pop	r29
+ 474:	08 95       	ret
+
+00000476 <Timer2_Start_PWM>:
+ * \param  None
+ * \return None
+ *
+ */
+void Timer2_Start_PWM(void)
+{
+ 476:	df 93       	push	r29
+ 478:	cf 93       	push	r28
+ 47a:	cd b7       	in	r28, 0x3d	; 61
+ 47c:	de b7       	in	r29, 0x3e	; 62
+    // Configure to get 50% duty cycle and set pin as output
+      OCR2A = 249;
+ 47e:	e3 eb       	ldi	r30, 0xB3	; 179
+ 480:	f0 e0       	ldi	r31, 0x00	; 0
+ 482:	89 ef       	ldi	r24, 0xF9	; 249
+ 484:	80 83       	st	Z, r24
+      OCR2B = 124;
+ 486:	e4 eb       	ldi	r30, 0xB4	; 180
+ 488:	f0 e0       	ldi	r31, 0x00	; 0
+ 48a:	8c e7       	ldi	r24, 0x7C	; 124
+ 48c:	80 83       	st	Z, r24
+      DDRD |= (1<<PD3);
+ 48e:	aa e2       	ldi	r26, 0x2A	; 42
+ 490:	b0 e0       	ldi	r27, 0x00	; 0
+ 492:	ea e2       	ldi	r30, 0x2A	; 42
+ 494:	f0 e0       	ldi	r31, 0x00	; 0
+ 496:	80 81       	ld	r24, Z
+ 498:	88 60       	ori	r24, 0x08	; 8
+ 49a:	8c 93       	st	X, r24
+}
+ 49c:	cf 91       	pop	r28
+ 49e:	df 91       	pop	r29
+ 4a0:	08 95       	ret
+
+000004a2 <Timer2_Stop_PWM>:
+ * \param  None
+ * \return None
+ *
+ */
+void Timer2_Stop_PWM(void)
+{
+ 4a2:	df 93       	push	r29
+ 4a4:	cf 93       	push	r28
+ 4a6:	cd b7       	in	r28, 0x3d	; 61
+ 4a8:	de b7       	in	r29, 0x3e	; 62
+    //Clear the Registers and reset the pin state to stop pwm
+      OCR2A = 0;
+ 4aa:	e3 eb       	ldi	r30, 0xB3	; 179
+ 4ac:	f0 e0       	ldi	r31, 0x00	; 0
+ 4ae:	10 82       	st	Z, r1
+      OCR2B = 0;
+ 4b0:	e4 eb       	ldi	r30, 0xB4	; 180
+ 4b2:	f0 e0       	ldi	r31, 0x00	; 0
+ 4b4:	10 82       	st	Z, r1
+      DDRD &= ~(1<<PD3);
+ 4b6:	aa e2       	ldi	r26, 0x2A	; 42
+ 4b8:	b0 e0       	ldi	r27, 0x00	; 0
+ 4ba:	ea e2       	ldi	r30, 0x2A	; 42
+ 4bc:	f0 e0       	ldi	r31, 0x00	; 0
+ 4be:	80 81       	ld	r24, Z
+ 4c0:	87 7f       	andi	r24, 0xF7	; 247
+ 4c2:	8c 93       	st	X, r24
+}
+ 4c4:	cf 91       	pop	r28
+ 4c6:	df 91       	pop	r29
+ 4c8:	08 95       	ret
+
+000004ca <_exit>:
+ 4ca:	f8 94       	cli
+
+000004cc <__stop_program>:
+ 4cc:	ff cf       	rjmp	.-2      	; 0x4cc <__stop_program>

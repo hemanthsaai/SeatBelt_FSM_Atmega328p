@@ -1,0 +1,16 @@
+
+
+typedef enum StateMachine_
+{
+    IDLE_STATE         = 0,
+    SEAT_OCCUPIED,
+    SEAT_BELT_ON,
+    BUZZER
+};
+
+typedef struct
+{
+    uint8_t Seat_Status;
+    uint8_t SeatBelt_Status;
+
+};

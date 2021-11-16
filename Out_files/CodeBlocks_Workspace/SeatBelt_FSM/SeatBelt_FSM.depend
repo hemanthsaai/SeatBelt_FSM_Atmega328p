@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1636877839 source:c:\users\heman\downloads\pj-5\out_files\codeblocks_workspace\seatbelt_fsm\fuse.c
+	<avr/io.h>
+
+1636914235 source:c:\users\heman\downloads\pj-5\out_files\codeblocks_workspace\seatbelt_fsm\main.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	"types.h"
+	"main.h"
+
+1636914417 c:\users\heman\downloads\pj-5\out_files\codeblocks_workspace\seatbelt_fsm\main.h
+
+1636892518 source:c:\users\heman\downloads\pj-5\out_files\codeblocks_workspace\seatbelt_fsm\isr.c
+
+1636909651 c:\users\heman\downloads\pj-5\out_files\codeblocks_workspace\seatbelt_fsm\types.h
+
+1636913500 source:c:\users\heman\downloads\pj-5\out_files\codeblocks_workspace\seatbelt_fsm\state_machine.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	"types.h"
+	"main.h"
+
+1636914328 source:c:\users\heman\downloads\pj-5\out_files\codeblocks_workspace\seatbelt_fsm\timers.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	"types.h"
+	"main.h"
+
